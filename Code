@@ -1,0 +1,28 @@
+import pandas as pd
+import yfinance as yf
+import mplfinance as mpf
+
+# Function to fetch stock data
+def get_stock_data(symbol, start_date, end_date):
+    stock_data = yf.download(symbol, start=start_date, end=end_date)
+    return stock_data
+
+# Function to plot MACD using Candlesticks
+def plot_macd_candlesticks(data):
+    mpf.plot(data, type='candle', mav=(12, 26), volume=True, title='AAPL Stock with MACD')
+
+# Main function
+def main():
+    # Set the stock symbol and date range
+    symbol = 'AAPL'
+    end_date = pd.Timestamp.today()
+    start_date = end_date - pd.Timedelta(days=30)
+
+    # Get stock data
+    stock_data = get_stock_data(symbol, start_date, end_date)
+
+    # Plot MACD using Candlesticks
+    plot_macd_candlesticks(stock_data)
+
+if __name__ == "__main__":
+    main()
